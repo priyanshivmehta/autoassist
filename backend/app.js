@@ -12,12 +12,14 @@ const LocalStrategy = require("passport-local");
 const dotenv = require("dotenv");
 const user=require("./routes/user");
 const mechanic=require("./routes/mechanic");
-
+const Razorpay =require("razorpay");
+const paymentRoute=require("./routes/paymentRoute");
 const Chat = require("./model/chat");
 
 const cors=require("cors");
 
 app.use(cors());
+
 
 const {Server}=require("socket.io");
 const {createServer}=require("http");
@@ -44,7 +46,10 @@ async function main() {
 
 main()
     .then(() => {
-        console.log("Connected to DB");
+        console.log("Connected to DB:", mongoose.connection.name);
+        mongoose.connection.db.listCollections().toArray().then(collections => {
+            console.log("Collections:", collections.map(c => c.name));
+        });
     })
     .catch((err) => {
         console.log(err);
@@ -196,7 +201,16 @@ app.get("/chat-history/:userId/:mechanicId", async (req, res) => {
 
 
 
+const instance = new Razorpay({
+    key_id: process.env.RAZORPAY_API_KEY,
+    key_secret: process.env.RAZORPAY_API_SECRET,
+  });
 
+app.use("/api",paymentRoute);
+
+app.get("/api/getkey",(req,res)=>{
+  res.status(200).json({key:process.env.RAZORPAY_API_KEY});
+});
 
 
 server.listen(PORT, () => {

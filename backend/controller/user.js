@@ -26,8 +26,6 @@ module.exports.signup = async (req, res) => {
     }
 };
 
-
-
 module.exports.login=async(req, res) => {
     req.flash("success", "Welcome User");
 
@@ -45,7 +43,6 @@ module.exports.update=async (req, res) => {
     }
 };
 
-
 module.exports.logout = (req, res) => {
     req.logout(function (err) {
         if (err) {
@@ -57,8 +54,6 @@ module.exports.logout = (req, res) => {
     });
 };
 
-
-
 module.exports.delete=async (req, res) => {
     try {
         let deletedUser=await User.findByIdAndDelete(req.params.id);
@@ -68,5 +63,62 @@ module.exports.delete=async (req, res) => {
     } catch (err) {
         req.flash("error", "Error deleting user.");
         res.redirect("/");
+    }
+};
+
+module.exports.getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (err) {
+        res.status(500).json({ error: "Error fetching users" });
+    }
+};
+
+module.exports.getUserById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json({ error: "Error fetching user" });
+    }
+};
+
+module.exports.createReview = async (req, res) => {
+    try {
+        const { mechanicId } = req.params;
+        const { rating, comment } = req.body;
+
+        // Validate input
+        if (!rating || !comment) {
+            return res.status(400).json({ error: "Rating and comment are required." });
+        }
+        
+        // Create a new review
+        const review = new Review({
+            rating,
+            comment,
+            author: req.user._id, // Assuming user is authenticated and req.user is available
+        });
+
+        // Save the review
+        await review.save();
+
+        // Associate the review with the mechanic
+        const mechanic = await Mechanic.findById(mechanicId);
+        if (!mechanic) {
+            return res.status(404).json({ error: "Mechanic not found." });
+        }
+
+        mechanic.reviews.push(review._id);
+        await mechanic.save();
+
+        res.status(201).json({ message: "Review created successfully.", review });
+    } catch (err) {
+        console.error("Error creating review:", err);
+        res.status(500).json({ error: "Internal server error." });
     }
 };
