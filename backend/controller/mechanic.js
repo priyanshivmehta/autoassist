@@ -5,27 +5,27 @@ module.exports.signup = async (req, res) => {
     try {
         console.log("Received mechanic signup request:", req.body);
 
-        const { username, email, number, password } = req.body;
+        const { username, email, number, password, latitude, longitude } = req.body;
 
-        if (!username || !email || !number || !password) {
+        if (!username || !email || !number || !password || latitude === undefined || longitude === undefined) {
             console.log("Missing required fields!");
-            req.flash("error", "All fields are required.");
-            return res.redirect("/mechanic/register");
+            // For API usage, return JSON error
+            return res.status(400).json({ error: "All fields are required, including location." });
         }
 
         console.log("Creating new mechanic object...");
-        const newMechanic = new Mechanic({ username, email, number });
+        const newMechanic = new Mechanic({ username, email, number, location: { latitude, longitude } });
 
         console.log("Registering mechanic with passport-local-mongoose...");
         const registeredMechanic = await Mechanic.register(newMechanic, password);
         
         console.log("Mechanic registered successfully:", registeredMechanic);
-        req.flash("success", "Mechanic registered successfully!");
-        return res.redirect("/");
+        // For API usage, return JSON success
+        return res.status(201).json({ message: "Mechanic registered successfully!", mechanic: registeredMechanic });
     } catch (err) {
         console.error("Error during mechanic signup:", err);
-        req.flash("error", err.message);
-        return res.redirect("/mechanic/register");
+        // For API usage, return JSON error
+        return res.status(500).json({ error: err.message });
     }
 };
 
@@ -116,4 +116,26 @@ module.exports.deleteReview = async (req, res) => {
 
     req.flash("success", "Review deleted!");
     res.redirect(`/mechanic/${id}`);
+};
+
+
+module.exports.getAllMechanics = async (req, res) => {
+    try {
+        const mechanics = await Mechanic.find();
+        res.status(200).json(mechanics);
+    } catch (err) {
+        res.status(500).json({ error: "Error fetching mechanics" });
+    }
+};
+
+module.exports.getMechanicById = async (req, res) => {
+    try {
+        const mechanic = await Mechanic.findById(req.params.id);
+        if (!mechanic) {
+            return res.status(404).json({ error: "Mechanic not found" });
+        }
+        res.status(200).json(mechanic);
+    } catch (err) {
+        res.status(500).json({ error: "Error fetching mechanic" });
+    }
 };
