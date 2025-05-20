@@ -129,7 +129,6 @@ import {
   BiLockAlt,
   BiEnvelope,
   BiLogoGoogle,
-  BiLogoFacebook,
 } from "react-icons/bi";
 import axios from "axios";
 
