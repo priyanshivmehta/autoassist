@@ -13,6 +13,14 @@ import TopNav from "./components/TopNav";
 import Dashboard from "./admin/dashboard";
 import Adminlogin from "./admin/Adminlogin";
 
+import RoadsideAssistance from "./components/RoadsideAssistance";
+import Towing from "./pages/tow";
+import FlatTyre from "./pages/flat";
+import BatteryJumpstart from "./pages/BatteryJumpstart";
+import StartingProblem from "./pages/StartingProblem";
+import KeyUnlock from "./pages/KeyUnlock";
+import FuelDelivery from "./pages/FuelDelivery";
+
 const AppLayout = () => {
   const location = useLocation();
   const hideNavbarRoutes = ["/login", "/admin/Adminlogin"];
@@ -34,6 +42,15 @@ const AppLayout = () => {
           <Route path="/tracking" element={<TrackingPage />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />
           <Route path="/admin/Adminlogin" element={<Adminlogin />} />
+
+          {/* routing for services */}
+          <Route path="/roadside-assistance" element={<RoadsideAssistance />} />
+          <Route path="/towing" element={<Towing />} />
+          <Route path="/flat-tyre" element={<FlatTyre />} />
+          <Route path="/battery-jumpstart" element={<BatteryJumpstart />} />
+          <Route path="/starting-problem" element={<StartingProblem />} />
+          <Route path="/key-unlock-assistance" element={<KeyUnlock />} />
+          <Route path="/fuel-delivery" element={<FuelDelivery />} />
         </Routes>
       </div>
     </div>
