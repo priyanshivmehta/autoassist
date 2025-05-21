@@ -9,12 +9,13 @@ import BrowseServicesPage from "./pages/services";
 import ServiceDetailsPage from "./pages/service-details";
 import TrackingPage from "./pages/tracking";
 import 'leaflet/dist/leaflet.css';
+import TopNav from "./components/TopNav";
+import Dashboard from "./admin/dashboard";
+import Adminlogin from "./admin/Adminlogin";
 
-
-// Wrapper to access hooks like useLocation
 const AppLayout = () => {
   const location = useLocation();
-  const hideNavbarRoutes = ["/login"];
+  const hideNavbarRoutes = ["/login", "/admin/Adminlogin"];
 
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
 
@@ -22,6 +23,7 @@ const AppLayout = () => {
     <div className="flex h-screen w-screen overflow-hidden">
       {!shouldHideNavbar && <Navbar />}
       <div className="flex-grow overflow-y-auto w-full">
+      {/* <TopNav /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -30,6 +32,8 @@ const AppLayout = () => {
           <Route path="/services" element={<BrowseServicesPage />} />
           <Route path="/service-details" element={<ServiceDetailsPage />} />
           <Route path="/tracking" element={<TrackingPage />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/Adminlogin" element={<Adminlogin />} />
         </Routes>
       </div>
     </div>
