@@ -1,0 +1,14 @@
+.button-custom {
+  padding: 0.8rem 1.8rem;
+  font-size: 1rem;
+  background-color: #000; /* black by default */
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button-custom:hover {
+  background-color: #ed832d; /* orange on hover */
+}
