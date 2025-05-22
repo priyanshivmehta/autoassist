@@ -17,9 +17,9 @@ import RoadsideAssistance from "./components/RoadsideAssistance";
 import Towing from "./pages/tow";
 import FlatTyre from "./pages/flat";
 import BatteryJumpstart from "./pages/BatteryJumpstart";
-import StartingProblem from "./pages/StartingProblem";
-import KeyUnlock from "./pages/KeyUnlock";
-import FuelDelivery from "./pages/FuelDelivery";
+import StartingProblem from "./pages/startingProblem";
+import KeyUnlock from "./pages/keyUnlock";
+import FuelDelivery from "./pages/fuelDelivery";
 
 const AppLayout = () => {
   const location = useLocation();
