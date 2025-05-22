@@ -78,7 +78,7 @@ useEffect(() => {
   return (
     <div>
     <div className="flex justify-between items-center w-full px-6 pt-5 pl-8 absolute top-0 left-0 z-50">
-  <h2 className="admin-logo text-5xl">
+  <h2 className={`text-3xl`}>
     Auto<span className="text-[#ed832d]">Assist</span>
   </h2>
   <button
@@ -155,14 +155,14 @@ useEffect(() => {
 
       <div className="toggle-box">
         <div className="toggle-panel toggle-left">
-          <h1>Hello, Mechanic!</h1>
+          <h1>Hello, <span className={`text-[#ed832d]`}>Mechanic!</span></h1>
           <p>Don't have an account?</p>
           <button className="btn register-btn" onClick={() => toggleForm(false)}>
             Register
           </button>
         </div>
         <div className="toggle-panel toggle-right">
-          <h1>Welcome Back!</h1>
+          <h1>Welcome <span className={`text-[#ed832d]`}>Back!</span></h1>
           <p>Already registered?</p>
           <button className="btn login-btn" onClick={() => toggleForm(true)}>
             Login

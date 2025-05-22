@@ -14,7 +14,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(90deg, #e2e2e2, #f0f1f3);
+    background: linear-gradient(90deg, white, #f3e0d0);
 }
 
 .container{
@@ -73,7 +73,7 @@ form{ width: 100%; }
     transition: .6s ease-in-out 1.2s, visibility 0s 1s;
 }
 
-    .container.active .form-box{ right: 50%; }
+    .container.active .form-box{ right: 50%;}
 
     .form-box.register{ visibility: hidden; }
         .container.active .form-box.register{ visibility: visible; }

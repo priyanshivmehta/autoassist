@@ -53,7 +53,7 @@ export default function BrowseServicesPage() {
   };
 
   return (
-    <div className="ml-20 p-10 space-y-4">
+    <div className="ml-20 p-10 pb-[61px] space-y-4 bg-white">
       <h1 className="text-2xl font-bold">Nearby Towing Services</h1>
       {services.map((service) => (
         <Card key={service.id} className="shadow-md">

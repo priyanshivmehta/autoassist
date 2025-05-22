@@ -63,7 +63,7 @@ const Menu = () => {
     { icon: "person", label: "Account" },
     { icon: "report", label: "Review", path: "/review" },
     { icon: "email", label: "Contact" },
-    { icon: "logout", label: "Login", path: "/login" },
+    { icon: "logout", label: "Logout", path: "/login" },
   ];
 
   return (

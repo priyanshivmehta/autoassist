@@ -2,7 +2,12 @@ import CarsRepair from "../assets/images/cars.png";
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex items-center justify-between bg-gradient-to-r from-white to-white">
+    <div className="bg-white">
+    <h2 className="text-3xl pt-5 text-right mr-5">
+          Auto
+          <span className={`text-[#ed832d]`}>Assist</span>
+        </h2>
+    <div className="flex items-center justify-between bg-gradient-to-r from-white to-white">
       {/* Text Section (Left) */}
       <div className="flex-1 pr-10 pl-20 pb-[50px] flex flex-col justify-center">
         <h1 className="text-6xl md:text-7xl font-extrabold text-gray-800 leading-tight text-left pl-[100px]">
@@ -36,6 +41,7 @@ const Home = () => {
         />
       </div>
       
+    </div>
     </div>
   );
 };

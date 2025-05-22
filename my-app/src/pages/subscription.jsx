@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Footer from "../components/footer";
 const plans = {
   monthly: [
     {
@@ -11,7 +11,7 @@ const plans = {
     },
     {
       title: "Premium",
-      price: "$9.99/month",
+      price: "Rs 399/month",
       features: ["Unlimited Requests", "Priority Dispatch", "Discounts on Services", "Dedicated Support"],
       button: "Subscribe Now",
       isPremium: true,
@@ -27,7 +27,7 @@ const plans = {
     },
     {
       title: "Premium",
-      price: "$99.99/year",
+      price: "Rs 1999/year",
       features: ["Unlimited Requests", "Priority Dispatch", "Discounts on Services", "Dedicated Support"],
       button: "Subscribe Now",
       isPremium: true,
@@ -73,6 +73,11 @@ const SubscriptionPage = () => {
   }
 
   return (
+    <div className={`bg-white`}>
+    <h2 className="text-3xl pt-5 text-right mr-5">
+          Auto
+          <span className={`text-[#ed832d]`}>Assist</span>
+        </h2>
     <div className="min-h-screen flex flex-col bg-white">
       {/* Subscription Plans Section */}
       <h2 className="text-4xl font-bold text-center mb-8 mt-10">Choose Your Plan</h2>
@@ -96,16 +101,16 @@ const SubscriptionPage = () => {
         </button>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 mb-16 mr-[100px] ml-[170px]">
+      <div className="grid md:grid-cols-2 gap-8 mb-16 flex justify-center mr-40 ml-40">
         {plans[billingCycle].map((plan, index) => (
           <div
             key={index}
             className={`p-6 border rounded-xl shadow-md bg-white ${
-              plan.isPremium ? "border-black" : "border-gray-300"
+              plan.isPremium ? "border-[#ed832d]" : "border-gray-300"
             }`}
           >
             <h3 className="text-2xl font-bold mb-2">{plan.title}</h3>
-            <p className="text-xl font-semibold mb-4">{plan.price}</p>
+            <p className="text-xl text-[#ed832d] font-semibold mb-4">{plan.price}</p>
             <ul className="mb-6 space-y-2">
               {plan.features.map((feature, idx) => (
                 <li key={idx} className="text-gray-700">
@@ -196,7 +201,7 @@ const SubscriptionPage = () => {
               className="w-full border p-2 rounded"
               rows={4}
             />
-            <button type="submit" className="w-full py-2 px-4 bg-black 600 text-white rounded">
+            <button type="submit" className="w-full py-2 px-4 bg-black 600 text-white rounded hover:bg-[#ed832d] transition duration-300">
               Submit
             </button>
           </form>
@@ -204,68 +209,10 @@ const SubscriptionPage = () => {
       </div>
 
       
-<footer className="bg-gray-900 text-white py-10 px-6 mt-10 ">
-  <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
-    {/* Company Info */}
-    <div>
-      <h3 className="text-xl font-bold mb-2">ByteForge</h3>
-      <p className="text-sm text-gray-300">
-        24/7 vehicle care and roadside assistance partner for bikes & cars across India
-      </p>
-      <p className="mt-4 text-sm text-gray-400">
-        <strong>Corporate Office</strong><br />
-        839/2, 24th Main Rd, Behind Thirumala Theatre,<br />
-        1st Sector, HSR Layout, Bengaluru, Karnataka 560102
-      </p>
+<Footer />
     </div>
-
-    {/* Reach Us */}
-    <div>
-      <h3 className="text-lg font-semibold mb-2">Reach Us</h3>
-      <div className="space-y-2 text-sm text-gray-300">
-        <div className="flex items-center gap-2">
-          📞 <a href="tel:1234567890" className="hover:underline">1234567890</a>
-        </div>
-        <div className="flex items-center gap-2">
-          📞 <a href="tel:7022012201" className="hover:underline">70 2201 2201 (CNGFirst)</a>
-        </div>
-        <div className="flex items-center gap-2">
-          📧 <a href="mailto:hello@byteforge.in" className="hover:underline">hello@byteforge.in</a>
-        </div>
-      </div>
     </div>
-
-    {/* Company Links */}
-    <div>
-      <h3 className="text-lg font-semibold mb-2">Company</h3>
-      <ul className="space-y-1 text-sm text-gray-300">
-        <li><a href="#" className="hover:underline">Contact Us</a></li>
-        <li><a href="#" className="hover:underline">About Us</a></li>
-        <li><a href="#" className="hover:underline">Career</a></li>
-        <li><a href="#" className="hover:underline">News</a></li>
-        <li><a href="#" className="hover:underline">Blogs</a></li>
-      </ul>
-    </div>
-
-    {/* Quick Links */}
-    <div>
-      <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
-      <ul className="space-y-1 text-sm text-gray-300">
-        <li><a href="#" className="hover:underline">My Subscriptions</a></li>
-        <li><a href="#" className="hover:underline">Terms & Conditions</a></li>
-        <li><a href="#" className="hover:underline">Prime Terms & Conditions</a></li>
-        <li><a href="#" className="hover:underline">Privacy Policy</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div className="mt-10 text-center text-xs text-gray-500">
-    © {new Date().getFullYear()} ByteForge. All rights reserved.
-  </div>
-</footer>
-    </div>
-    
   );
-};
+}
 
 export default SubscriptionPage;
