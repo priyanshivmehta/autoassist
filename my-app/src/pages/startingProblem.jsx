@@ -1,5 +1,9 @@
 import React from "react";
 import startIcon from "../assets/images/startIcon.png"; // Add an appropriate image
+<<<<<<< HEAD
+=======
+import "../styles/ServiceButton.css"; // ✅ Added external CSS for hover effect
+>>>>>>> 1d6f5fb4eabf16a0b39319e695880da055b9cf5c
 
 const styles = {
   wrapper: {

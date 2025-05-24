@@ -1,5 +1,9 @@
 import React from "react";
 import keyIcon from "../assets/images/keyIcon.png";
+<<<<<<< HEAD
+=======
+import "../styles/ServiceButton.css"; // ✅ Import the CSS file
+>>>>>>> 1d6f5fb4eabf16a0b39319e695880da055b9cf5c
 
 const styles = {
   wrapper: {
