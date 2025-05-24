@@ -101,33 +101,34 @@ const SubscriptionPage = () => {
         </button>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 mb-16 flex justify-center mr-40 ml-40">
-        {plans[billingCycle].map((plan, index) => (
-          <div
-            key={index}
-            className={`p-6 border rounded-xl shadow-md bg-white ${
-              plan.isPremium ? "border-[#ed832d]" : "border-gray-300"
+      <div className="flex flex-col md:flex-row justify-center items-center gap-8 px-4 mb-16">
+      {plans[billingCycle].map((plan, index) => (
+        <div
+          key={index}
+          className={`flex-1 max-w-md w-full p-6 border rounded-xl shadow-md bg-white ${
+            plan.isPremium ? "border-[#ed832d]" : "border-gray-300"
+          }`}
+        >
+          <h3 className="text-2xl font-bold mb-2">{plan.title}</h3>
+          <p className="text-xl text-[#ed832d] font-semibold mb-4">{plan.price}</p>
+          <ul className="mb-6 space-y-2">
+            {plan.features.map((feature, idx) => (
+              <li key={idx} className="text-gray-700">
+                ✔️ {feature}
+              </li>
+            ))}
+          </ul>
+          <button
+            className={`w-full py-2 px-4 rounded-md ${
+              plan.isPremium ? "bg-black text-white" : "bg-gray-300 text-gray-600"
             }`}
           >
-            <h3 className="text-2xl font-bold mb-2">{plan.title}</h3>
-            <p className="text-xl text-[#ed832d] font-semibold mb-4">{plan.price}</p>
-            <ul className="mb-6 space-y-2">
-              {plan.features.map((feature, idx) => (
-                <li key={idx} className="text-gray-700">
-                  ✔️ {feature}
-                </li>
-              ))}
-            </ul>
-            <button
-              className={`w-full py-2 px-4 rounded-md ${
-                plan.isPremium ? "bg-black text-white" : "bg-gray-300 text-gray-600"
-              }`}
-            >
-              {plan.button}
-            </button>
-          </div>
-        ))}
-      </div>
+            {plan.button}
+          </button>
+        </div>
+      ))}
+    </div>
+
 
       {/* Advertisement Collaboration Form Section */}
       <div className="p-6 bg-white rounded-xl border border-gray-300 shadow-2xl max-w-5xl mx-auto">

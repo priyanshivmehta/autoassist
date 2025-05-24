@@ -1,10 +1,8 @@
 import React from "react";
-<<<<<<< HEAD
 import fuelIcon from "../assets/images/fuelIcon.png";
-=======
-import fuelIcon from "../assets/images/fuelIcon.png"; // Replace with actual image path
+
 import "../styles/ServiceButton.css"; // Import external CSS
->>>>>>> 1d6f5fb4eabf16a0b39319e695880da055b9cf5c
+
 
 const styles = {
   wrapper: {
