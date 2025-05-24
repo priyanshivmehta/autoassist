@@ -1,6 +1,5 @@
 import React from "react";
 import keyIcon from "../assets/images/keyIcon.png";
-import "../styles/service.css"; // ✅ Import the CSS file
 
 const styles = {
   wrapper: {

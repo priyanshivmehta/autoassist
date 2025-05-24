@@ -1,6 +1,5 @@
 import React from "react";
-import fuelIcon from "../assets/images/fuelIcon.png"; // Replace with actual image path
-import "../styles/service.css"; // Import external CSS
+import fuelIcon from "../assets/images/fuelIcon.png";
 
 const styles = {
   wrapper: {

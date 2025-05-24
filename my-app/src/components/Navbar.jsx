@@ -56,13 +56,13 @@ const Menu = () => {
 
   const menuItems = [
     { icon: "home", label: "Home", path: "/" },
+    { icon: "person", label: "Account" },
     { icon: "dashboard", label: "DashBoard" },
     { icon: "explore", label: "Subscription", path: "/subscription" },
     { icon: "analytics", label: "Services", path: "/services" },
-    { icon: "settings", label: "Settings" },
-    { icon: "person", label: "Account" },
-    { icon: "report", label: "Review", path: "/review" },
+    { icon: "star", label: "Review", path: "/review" },
     { icon: "email", label: "Contact" },
+    { icon: "settings", label: "Settings" },
     { icon: "logout", label: "Logout", path: "/login" },
   ];
 

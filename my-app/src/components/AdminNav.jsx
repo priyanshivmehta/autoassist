@@ -1,45 +1,54 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom"; // ✅ Import Link
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-const Menu = () => {
-  const [isHovered, setIsHovered] = useState(false);
+const AdminSidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    navigate("/login");
+  };
 
   const menuItems = [
-    { icon: "home", label: "Home", path: "/" },
-    { icon: "dashboard", label: "Fleet Management" },
-    { icon: "settings", label: "Service Request" },
-    { icon: "person", label: "Mechanics" },
-    { icon: "email", label: "Contact" },
-    { icon: "logout", label: "Logout", path: "/login" },
+    { icon: "dashboard", label: "Dashboard", path: "/admin/dashboard" },
+    { icon: "assignment", label: "Service Requests", path: "/admin/ServiceRequest" },
+    { icon: "construction", label: "Mechanics", path: "/admin/mechanic" },
+    { icon: "star", label: "Reviews", path: "/admin/reviews" },
+    { icon: "account_circle", label: "Users", path: "/admin/users" },
+    { icon: "paid", label: "Subscriptions", path: "/admin/subscription" },
+    { icon: "settings", label: "settings", path: "/admin/settings"},
+    { icon: "logout", label: "Logout", path: "/login", action: handleLogout },
   ];
 
   return (
-    <div
-      className={`fixed top-0 left-0 h-full overflow-y-scroll no-scrollbar transition-all duration-300 p-5 pl-0 shadow-lg backdrop-blur-sm bg-gradient-to-b from-black via-black to-black`}
-      style={{ width: isHovered ? "260px" : "85px" }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <ul className="flex flex-col">
-        {menuItems.map((item, index) => (
-          <li
-            key={index}
-            className="mb-5 rounded-r-full pl-5 transition-all duration-300 hover:bg-black-300"
-          >
-            <Link
-              to={item.path}
-              className="flex items-center text-white font-sans no-underline"
+    <aside className="fixed left-0 top-0 h-full w-50 p-3 pl-0 shadow-lg backdrop-blur-sm bg-gradient-to-b from-black via-black to-black overflow-y-auto no-scrollbar">
+      <h2 className="text-white text-2xl mb-6 px-5 ml-10 mt-3">
+        Auto<span className="text-[#ed832d]">Assist</span>
+      </h2>
+      <nav>
+        <ul className="flex flex-col">
+          {menuItems.map((item, index) => (
+            <li
+              key={index}
+              className="mb-2 rounded-r-full pl-5 hover:bg-gray-800 transition-all duration-300"
             >
-              <span className="material-symbols-outlined p-2 text-[25px] mr-3 rounded-full bg-white text-black">
-                {item.icon}
-              </span>
-              {isHovered && <span>{item.label}</span>}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+              <Link
+                to={item.path}
+                onClick={item.action}
+                className="flex items-center text-white font-sans no-underline px-3 py-2"
+              >
+                <span className="material-symbols-outlined p-2 text-[25px] mr-3 rounded-full bg-white text-black">
+                  {item.icon}
+                </span>
+                <span>{item.label}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </aside>
   );
 };
 
-export default Menu;
+export default AdminSidebar;
