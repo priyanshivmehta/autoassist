@@ -14,7 +14,7 @@ import Dashboard from "./admin/dashboard";
 import Adminlogin from "./admin/Adminlogin";
 import AdminNav from "./components/AdminNav";
 
-import RoadsideAssistance from "./components/RoadsideAssistance";
+import RoadsideAssistance from "./pages/RoadsideAssistance";
 import Towing from "./pages/tow";
 import FlatTyre from "./pages/flat";
 import BatteryJumpstart from "./pages/BatteryJumpstart";
