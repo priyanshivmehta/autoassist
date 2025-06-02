@@ -5,6 +5,7 @@ import dispatch from '../assets/images/dispatch.png';
 import transport from '../assets/images/transport.png';
 import payment from '../assets/images/payment.png';
 import locate from '../assets/images/locate.png';
+import { useNavigate } from "react-router-dom";
 
 const TowingAssistance = () => {
   const steps = [
@@ -21,7 +22,7 @@ const TowingAssistance = () => {
       alignItems: "center",
       fontSize: "22px",
       marginBottom: "20px",
-      color: "#0056d2", // <-- Unified color for both "Call Us :" and number
+      color: "#0056d2",
     },
     image: {
       flex: 1,
@@ -35,6 +36,8 @@ const TowingAssistance = () => {
       marginBottom: "1rem",
     },
   };
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -143,7 +146,33 @@ const TowingAssistance = () => {
           line-height: 1.4;
         }
 
+        .auto-assist-logo {
+          position: absolute;
+          top: 20px;
+          right: 30px;
+          z-index: 10;
+        }
+
+        .logo-text {
+          font-family: 'Poppins', sans-serif;
+          font-size: 28px;
+          font-weight: 600;
+          margin: 0;
+        }
+
+        .highlight {
+          color: #ed832d;
+        }
+
         @media (max-width: 768px) {
+          .logo-text {
+            font-size: 20px;
+          }
+
+          .auto-assist-logo {
+            top: 12px;
+            right: 16px;
+          }
           .towing-container {
             flex-direction: column;
             text-align: center;
@@ -179,7 +208,13 @@ const TowingAssistance = () => {
       `}</style>
 
       <section className="towing-section">
+         <div className="auto-assist-logo">
+          <h2 className="logo-text">
+            Auto<span className="highlight">Assist</span>
+          </h2>
+        </div>
         <div className="towing-container">
+          
           <div className="towing-left">
             <h1 className="towing-heading">
               24/7 Car Towing <br /> Assistance
@@ -203,15 +238,19 @@ const TowingAssistance = () => {
                   2.18l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1
                   2.18-.45c.74.36 1.53.61 2.34.73a2 2 0 0 1 1.72 2z" />
               </svg>
-              Call Us : <a href="tel:8197852852" style={{ color: "#0056d2", marginLeft: "4px" }}>8299 342 121</a>
+              Call Us : <a href="tel:8299342121" style={{ color: "#0056d2", marginLeft: "4px" }}>8299 342 121</a>
             </div>
 
-            <button className="book-btn" onClick={() => alert("Service Booked!")}>
+            <button className="book-btn" onClick={() => navigate("/towing/book")}>
               Book Towing
             </button>
           </div>
 
           <div className="towing-right">
+            {/* TEXT LOGO */}
+            
+
+            {/* TOW IMAGE */}
             <img src={towIcon} alt="Towing Illustration" style={styles.image} />
           </div>
         </div>

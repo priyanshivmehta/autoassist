@@ -1,11 +1,12 @@
 import React from "react";
 import batteryIcon from "../assets/images/batteryIcon.png"; // Replace with actual image path
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   wrapper: {
     fontFamily: "'Poppins', sans-serif",
     backgroundColor: "#fff",
-    padding: "4rem 1rem 3rem", // Added padding at top
+    padding: "0.5rem 2rem 6rem", // Added padding at top
   },
   hero: {
     maxWidth: "1200px",
@@ -97,10 +98,16 @@ const styles = {
 };
 
 function BatteryJumpstartService() {
+  const navigate = useNavigate();
   const [hover, setHover] = React.useState(false);
 
   return (
     <div style={styles.wrapper}>
+      <div style={styles.logoContainer}>
+        <h2 className="text-3xl pt-5 text-right mr-5">
+          Auto<span className="text-[#ed832d]">Assist</span>
+        </h2>
+      </div> 
       <div style={styles.hero}>
         <div style={styles.leftColumn}>
           <h1 style={styles.heading}>
@@ -131,7 +138,7 @@ function BatteryJumpstartService() {
             }}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            onClick={() => alert("Service Booked!")}
+            onClick={() => navigate("/battery-jumpstart/book")}
           >
             Book Service
           </button>

@@ -1,14 +1,13 @@
 import React from "react";
 import startIcon from "../assets/images/startIcon.png"; // Add an appropriate image
-
 import "../styles/ServiceButton.css"; // ✅ Added external CSS for hover effect
-
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   wrapper: {
     fontFamily: "'Poppins', sans-serif",
     backgroundColor: "#fff",
-    padding: "4rem 1rem 3rem",
+    padding: "0.5rem 2rem 6rem",
   },
   hero: {
     maxWidth: "1200px",
@@ -87,8 +86,14 @@ const styles = {
 };
 
 function VehicleStartService() {
+   const navigate = useNavigate();
   return (
     <div style={styles.wrapper}>
+      <div style={styles.logoContainer}>
+        <h2 className="text-3xl pt-5 text-right mr-5">
+          Auto<span className="text-[#ed832d]">Assist</span>
+        </h2>
+      </div>  
       {/* Hero Section */}
       <div style={styles.hero}>
         <div style={styles.leftColumn}>
@@ -115,7 +120,7 @@ function VehicleStartService() {
 
           <button
             className="button-custom" // ✅ Use class instead of inline style
-            onClick={() => alert("Service Booked!")}
+            onClick={() => navigate("/start-problem/book")}
           >
             Book Service
           </button>

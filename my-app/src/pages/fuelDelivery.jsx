@@ -1,14 +1,12 @@
 import React from "react";
-import fuelIcon from "../assets/images/fuelIcon.png";
-
+import fuelIcon from "../assets/images/fuelIcon.png"; // Replace with actual image path
 import "../styles/ServiceButton.css"; // Import external CSS
-
-
+import { useNavigate } from "react-router-dom";
 const styles = {
   wrapper: {
     fontFamily: "'Poppins', sans-serif",
     backgroundColor: "#fff",
-    padding: "4rem 1rem 3rem",
+    padding: "0.5rem 2rem 6rem",
   },
   hero: {
     maxWidth: "1200px",
@@ -87,8 +85,14 @@ const styles = {
 };
 
 function FuelDeliveryService() {
+  const navigate = useNavigate();
   return (
     <div style={styles.wrapper}>
+      <div style={styles.logoContainer}>
+        <h2 className="text-3xl pt-5 text-right mr-5">
+          Auto<span className="text-[#ed832d]">Assist</span>
+        </h2>
+      </div> 
       {/* Hero Section */}
       <div style={styles.hero}>
         <div style={styles.leftColumn}>
@@ -113,7 +117,7 @@ function FuelDeliveryService() {
             Call Us : <a href="tel:8197852852" style={{ color: "#0056d2" }}>8299 342 121</a>
           </div>
 
-          <button className="button-custom" onClick={() => alert("Service Booked!")}>
+          <button className="button-custom" onClick={() => navigate("/fuel-delivery/book")}>
             Book Service
           </button>
         </div>
