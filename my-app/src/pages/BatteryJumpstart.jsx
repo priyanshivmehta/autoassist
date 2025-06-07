@@ -1,12 +1,19 @@
 import React from "react";
 import batteryIcon from "../assets/images/batteryIcon.png"; // Replace with actual image path
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/footer";
 
 const styles = {
   wrapper: {
     fontFamily: "'Poppins', sans-serif",
     backgroundColor: "#fff",
-    padding: "0.5rem 2rem 6rem", // Added padding at top
+    minHeight: "100vh", // Full height of viewport
+    display: "flex",
+    flexDirection: "column", // Vertical stack
+  },
+  content: {
+    flexGrow: 1, // Fill remaining space to push footer down
+    padding: "0.5rem 2rem 6rem",
   },
   hero: {
     maxWidth: "1200px",
@@ -27,7 +34,7 @@ const styles = {
     fontWeight: "700",
     lineHeight: "1.2",
     marginBottom: "2.5rem",
-    paddingTop: "1.5rem", // Header padding at top
+    paddingTop: "1.5rem",
   },
   phone: {
     fontSize: "1.7rem",
@@ -102,73 +109,74 @@ function BatteryJumpstartService() {
   const [hover, setHover] = React.useState(false);
 
   return (
+  <div style={{ display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+        fontFamily: "'Poppins', sans-serif",
+        backgroundColor: "#fff",}}>
     <div style={styles.wrapper}>
-      <div style={styles.logoContainer}>
-        <h2 className="text-3xl pt-5 text-right mr-5">
-          Auto<span className="text-[#ed832d]">Assist</span>
-        </h2>
-      </div> 
-      <div style={styles.hero}>
-        <div style={styles.leftColumn}>
-          <h1 style={styles.heading}>
-            24/7 Battery<br />Jumpstart Service
-          </h1>
+      <div style={styles.content}>
+        <div style={styles.logoContainer}>
+          <h2 className="text-3xl pt-5 text-right mr-5">
+            Auto<span className="text-[#ed832d]">Assist</span>
+          </h2>
+        </div>
 
-          <div style={styles.phone}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+        <div style={styles.hero}>
+          <div style={styles.leftColumn}>
+            <h1 style={styles.heading}>
+              24/7 Battery
+              <br />
+              Jumpstart Service
+            </h1>
+
+            <button
+              style={{
+                ...styles.button,
+                ...(hover ? styles.buttonHover : {}),
+              }}
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+              onClick={() => navigate("/battery-jumpstart/book")}
             >
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.08 5.18 2 2 0 0 1 5 3h3a2 2 0 0 1 2 1.72c.12.81.37 1.6.73 2.34a2 2 0 0 1-.45 2.18l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.18-.45c.74.36 1.53.61 2.34.73a2 2 0 0 1 1.72 2z" />
-            </svg>
-            Call Us : <a href="tel:8197852852" style={{ color: "#0056d2" }}>8299 342 121</a>
+              Book Service
+            </button>
           </div>
 
-          <button
-            style={{
-              ...styles.button,
-              ...(hover ? styles.buttonHover : {}),
-            }}
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            onClick={() => navigate("/battery-jumpstart/book")}
-          >
-            Book Service
-          </button>
+          <img
+            src={batteryIcon}
+            alt="Battery Jumpstart"
+            style={styles.image}
+          />
         </div>
 
-        <img src={batteryIcon} alt="Battery Jumpstart" style={styles.image} />
-      </div>
+        <div style={styles.section}>
+          <h2 style={styles.sectionTitle}>How do we do it?</h2>
+          <p style={styles.sectionDesc}>
+            Stranded with a dead battery? Our 24/7 jumpstart service gets you
+            back on the road quickly and safely. We bring the equipment,
+            expertise, and fast response you need — anytime, anywhere.
+          </p>
 
-      <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>How do we do it?</h2>
-        <p style={styles.sectionDesc}>
-          Stranded with a dead battery? Our 24/7 jumpstart service gets you back on the road quickly and safely. 
-          We bring the equipment, expertise, and fast response you need — anytime, anywhere.
-        </p>
-
-        <div style={styles.stepsGrid}>
-          {[
-            { text: "Inspect the battery & terminals", icon: "🔋" },
-            { text: "Connect professional jumper kit", icon: "⚡" },
-            { text: "Start the vehicle safely", icon: "🚗" },
-            { text: "Check alternator & battery health", icon: "🧪" },
-            { text: "Provide battery care tips", icon: "💡" },
-          ].map((step, idx) => (
-            <div key={idx} style={styles.stepItem}>
-              <div style={styles.iconBubble}>{step.icon}</div>
-              {step.text}
-            </div>
-          ))}
+          <div style={styles.stepsGrid}>
+            {[
+              { text: "Inspect the battery & terminals", icon: "🔋" },
+              { text: "Connect professional jumper kit", icon: "⚡" },
+              { text: "Start the vehicle safely", icon: "🚗" },
+              { text: "Check alternator & battery health", icon: "🧪" },
+              { text: "Provide battery care tips", icon: "💡" },
+            ].map((step, idx) => (
+              <div key={idx} style={styles.stepItem}>
+                <div style={styles.iconBubble}>{step.icon}</div>
+                {step.text}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+      </div>
+      {/* Footer sticks to bottom */}
+      <Footer />
     </div>
   );
 }
