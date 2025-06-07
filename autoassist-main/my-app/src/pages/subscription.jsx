@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Footer from "../components/footer";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 const plans = {
   monthly: [
     {
@@ -8,6 +11,7 @@ const plans = {
       features: ["Standard Towing", "24/7 Support", "5 Service Requests/Month"],
       button: "Current Plan",
       isPremium: false,
+      amount: 0
     },
     {
       title: "Premium",
@@ -15,6 +19,7 @@ const plans = {
       features: ["Unlimited Requests", "Priority Dispatch", "Discounts on Services", "Dedicated Support"],
       button: "Subscribe Now",
       isPremium: true,
+      amount: 399
     },
   ],
   yearly: [
@@ -24,6 +29,7 @@ const plans = {
       features: ["Standard Towing", "24/7 Support", "5 Service Requests/Month"],
       button: "Current Plan",
       isPremium: false,
+      amount: 0
     },
     {
       title: "Premium",
@@ -31,6 +37,7 @@ const plans = {
       features: ["Unlimited Requests", "Priority Dispatch", "Discounts on Services", "Dedicated Support"],
       button: "Subscribe Now",
       isPremium: true,
+      amount: 1999
     },
   ],
 };
@@ -49,6 +56,7 @@ const businessTypes = [
 
 const SubscriptionPage = () => {
   const [billingCycle, setBillingCycle] = useState("monthly");
+  const navigate = useNavigate();
 
   // Advertisement Form State
   const [formData, setFormData] = useState({
@@ -67,10 +75,65 @@ const SubscriptionPage = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // Here you can add your backend integration or API call
     console.log("Advertisement form submitted:", formData);
     setSubmitted(true);
   }
+
+  const handlePayment = async (amount) => {
+    try {
+      // First get the Razorpay key
+      const keyResponse = await axios.get("http://localhost:3000/api/getkey");
+      const razorpayKey = keyResponse.data.key;
+
+      // Then create the order
+      const { data } = await axios.post("http://localhost:3000/api/payment/checkout", {
+        amount: amount
+      });
+
+      const options = {
+        key: razorpayKey,
+        amount: data.order.amount,
+        currency: data.order.currency,
+        name: "AutoAssist",
+        description: "Premium Subscription",
+        order_id: data.order.id,
+        handler: async function (response) {
+          try {
+            const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
+            const verificationResponse = await axios.post("http://localhost:3000/api/payment/paymentverification", {
+              razorpay_payment_id,
+              razorpay_order_id,
+              razorpay_signature,
+            });
+            
+            // If verification is successful, redirect to success page
+            if (verificationResponse.data.success) {
+              window.location.href = `http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`;
+            } else {
+              alert("Payment verification failed. Please contact support.");
+            }
+          } catch (error) {
+            console.error("Payment verification error:", error);
+            alert("Payment verification failed. Please contact support.");
+          }
+        },
+        prefill: {
+          name: "User Name",
+          email: "user@example.com",
+          contact: "9999999999"
+        },
+        theme: {
+          color: "#000000"
+        }
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+    } catch (error) {
+      console.error("Payment initialization error:", error);
+      alert("Failed to initialize payment. Please try again.");
+    }
+  };
 
   return (
     <div className={`bg-white`}>
@@ -122,6 +185,7 @@ const SubscriptionPage = () => {
             className={`w-full py-2 px-4 rounded-md ${
               plan.isPremium ? "bg-black text-white" : "bg-gray-300 text-gray-600"
             }`}
+            onClick={() => plan.isPremium && handlePayment(plan.amount)}
           >
             {plan.button}
           </button>
