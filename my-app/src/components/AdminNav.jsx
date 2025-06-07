@@ -18,7 +18,7 @@ const AdminSidebar = () => {
     { icon: "account_circle", label: "Users", path: "/admin/users" },
     { icon: "paid", label: "Subscriptions", path: "/admin/subscription" },
     { icon: "settings", label: "settings", path: "/admin/settings"},
-    { icon: "logout", label: "Logout", path: "/login", action: handleLogout },
+    { icon: "logout", label: "Logout", path: "/admin/Adminlogin", action: handleLogout },
   ];
 
   return (

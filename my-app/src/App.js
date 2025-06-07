@@ -28,6 +28,12 @@ import SubscriptionPage from "./admin/subscription";
 import AdminReviews from "./admin/reviews";
 import AdminSettings from "./admin/settings";
 
+import MechanicDashboard from "./mechanic/dashboardM";
+import MechNav from "./components/mechNav";
+import MechanicProfile from "./mechanic/mechProfile";
+import MechanicReviews from "./mechanic/mechreview";
+import MechanicFAQs from "./mechanic/mechfaq";
+
 const AppLayout = () => {
   const location = useLocation();
   const hideNavbarRoutes = ["/login", "/admin/Adminlogin"];
@@ -75,6 +81,11 @@ const AppLayout = () => {
           <Route path="/starting-problem" element={<StartingProblem />} />
           <Route path="/key-unlock-assistance" element={<KeyUnlock />} />
           <Route path="/fuel-delivery" element={<FuelDelivery />} />
+
+          <Route path="/mechanic/dashboard" element={<MechanicDashboard />} />
+          <Route path="/mechanic/profile" element={<MechanicProfile />} />
+          <Route path="/mechanic/reviews" element={<MechanicReviews />} />
+          <Route path="/mechanic/faqs" element={<MechanicFAQs />} />
         </Routes>
       </div>
     </div>
