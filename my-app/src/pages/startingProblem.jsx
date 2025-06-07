@@ -2,6 +2,7 @@ import React from "react";
 import startIcon from "../assets/images/startIcon.png"; // Add an appropriate image
 import "../styles/ServiceButton.css"; // ✅ Added external CSS for hover effect
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/footer";
 
 const styles = {
   wrapper: {
@@ -88,6 +89,11 @@ const styles = {
 function VehicleStartService() {
    const navigate = useNavigate();
   return (
+    <div style={{ display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+        fontFamily: "'Poppins', sans-serif",
+        backgroundColor: "#fff",}}>
     <div style={styles.wrapper}>
       <div style={styles.logoContainer}>
         <h2 className="text-3xl pt-5 text-right mr-5">
@@ -100,23 +106,6 @@ function VehicleStartService() {
           <h1 style={styles.heading}>
             24/7 Vehicle<br />Starting Assistance
           </h1>
-
-          <div style={styles.phone}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="black"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.08 5.18 2 2 0 0 1 5 3h3a2 2 0 0 1 2 1.72c.12.81.37 1.6.73 2.34a2 2 0 0 1-.45 2.18l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.18-.45c.74.36 1.53.61 2.34.73a2 2 0 0 1 1.72 2z" />
-            </svg>
-            Call Us : <a href="tel:8197852852" style={{ color: "#0056d2" }}>8299 342 121</a>
-          </div>
 
           <button
             className="button-custom" // ✅ Use class instead of inline style
@@ -152,6 +141,8 @@ function VehicleStartService() {
           ))}
         </div>
       </div>
+      </div>
+      <Footer />
     </div>
   );
 }
