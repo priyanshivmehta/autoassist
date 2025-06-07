@@ -6,6 +6,7 @@ import transport from '../assets/images/transport.png';
 import payment from '../assets/images/payment.png';
 import locate from '../assets/images/locate.png';
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/footer";
 
 const TowingAssistance = () => {
   const steps = [
@@ -208,6 +209,11 @@ const TowingAssistance = () => {
       `}</style>
 
       <section className="towing-section">
+        <div style={{ display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+        fontFamily: "'Poppins', sans-serif",
+        backgroundColor: "#fff",}}>
          <div className="auto-assist-logo">
           <h2 className="logo-text">
             Auto<span className="highlight">Assist</span>
@@ -219,28 +225,6 @@ const TowingAssistance = () => {
             <h1 className="towing-heading">
               24/7 Car Towing <br /> Assistance
             </h1>
-
-            <div style={styles.phone}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="26"
-                height="26"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="black"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                style={{ marginRight: "0.5rem" }}
-              >
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.08 5.18
-                  2 2 0 0 1 5 3h3a2 2 0 0 1 2 1.72c.12.81.37 1.6.73 2.34a2 2 0 0 1-.45
-                  2.18l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1
-                  2.18-.45c.74.36 1.53.61 2.34.73a2 2 0 0 1 1.72 2z" />
-              </svg>
-              Call Us : <a href="tel:8299342121" style={{ color: "#0056d2", marginLeft: "4px" }}>8299 342 121</a>
-            </div>
-
             <button className="book-btn" onClick={() => navigate("/towing/book")}>
               Book Towing
             </button>
@@ -270,6 +254,8 @@ const TowingAssistance = () => {
             ))}
           </div>
         </div>
+        </div>
+         <Footer />
       </section>
     </>
   );
