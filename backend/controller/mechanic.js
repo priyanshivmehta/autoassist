@@ -32,8 +32,47 @@ module.exports.signup = async (req, res) => {
 
 module.exports.login=async(req, res) => {
     req.flash("success", "Welcome Mechanic");
+    const mechanic = req.user;
+    req.login(mechanic, (err) => {
+        if (err) {
+            console.error("Login error:", err);
+            req.flash("error", "Login failed!");
+            return res.redirect("/mechanic-login");
+        }
+
+        // Ensures session is fully saved before responding
+        req.session.save((err) => {
+            if (err) {
+                console.error("Session save error:", err);
+                req.flash("error", "Session save failed!");
+                return res.redirect("/mechanic-login");
+            }
+            console.log("Mechanic login successful:", mechanic);
+            res.status(200).json({
+                message: "Login successful",
+                success: true,
+                mechanic,
+            });
+        });
+    });
     res.redirect("/mechanic-dashboard"); // Redirect to mechanic dashboard
 };
+
+module.exports.getProfile = async (req, res) => {
+    try {
+        const mechanic = await Mechanic.findById(req.user._id);
+        if (!mechanic) {
+            req.flash("error", "Mechanic not found.");
+            return res.redirect("/");
+        }
+        res.status(200).json(mechanic);
+    } catch (err) {
+        console.error("Error fetching mechanic profile:", err);
+        req.flash("error", "Error fetching mechanic profile.");
+        res.redirect("/");
+    }
+};
+
 
 
 module.exports.update=async (req, res) => {

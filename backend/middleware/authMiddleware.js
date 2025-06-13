@@ -2,6 +2,10 @@ const Mechanic = require("../model/mechanic");
 
 // Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {
+    // console.log("Request", req);
+    // console.log("Cookies:", req.cookies);
+    // console.log("Session ID from cookie:", req.cookies['connect.sid']);
+    // console.log("Checking authentication for user:", req.user);
     if (req.isAuthenticated()) {
         return next();
     }

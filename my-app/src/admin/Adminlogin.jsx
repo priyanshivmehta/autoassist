@@ -23,8 +23,8 @@ const AdminMechanicLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const endpoint = isLoginActive ? "/mechanic-login" : "/mechanic-register";
-    const url = `http://localhost:5000${endpoint}`;
+    const endpoint = isLoginActive ? "/admin/login" : "/admin/signup";
+    const url = `http://localhost:3000${endpoint}`;
     const submissionData = {
     ...formData,
     latitude: location.latitude,
@@ -32,14 +32,16 @@ const AdminMechanicLogin = () => {
   };
 
     try {
-      const response = await axios.post(url, formData);
-      if (isLoginActive) {
-        localStorage.setItem("token", response.data.token);
-        alert("Mechanic/Admin login successful!");
-        navigate("/admin-dashboard");
-      } else {
-        alert("Registration successful!");
-      }
+      const response = await axios.post(url, formData, {withCredentials: true});
+      // if (isLoginActive) {
+      //   localStorage.setItem("token", response.data.token);
+      //   alert("Mechanic/Admin login successful!");
+      //   navigate("/admin-dashboard");
+      // } else {
+      //     alert("Registration successful!");
+      //   }
+      navigate(response.data.redirect || "/admin-dashboard");
+      alert(isLoginActive ? "Login successful!" : "Registration successful!");
       setFormData({ username: "", email: "", number: "", password: "", location: "" });
     } catch (error) {
       alert(error.response?.data?.error || "An error occurred");

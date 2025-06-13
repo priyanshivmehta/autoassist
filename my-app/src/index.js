@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { User } from 'lucide-react';
 
 const GOOGLE_CLIENT_ID = "270075317708-imjc64qbldn6h4au50rv7vce5tovmhdv.apps.googleusercontent.com";
 

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import MechNav from "../components/mechNav";
+import { useMechanic } from "../context/MechanicContextProvider";
+
 const MechanicProfile = () => {
   const initialData = {
     name: "Rajesh Patel",
@@ -12,9 +14,12 @@ const MechanicProfile = () => {
     status: "Available",
   };
 
-  const [formData, setFormData] = useState(initialData);
+  const { Mechanic, loading } = useMechanic();
+  
+  const [formData, setFormData] = useState(Mechanic ? Mechanic : initialData);
   const [editMode, setEditMode] = useState(false);
-  const [tempData, setTempData] = useState(initialData);
+  const [tempData, setTempData] = useState(Mechanic);
+
 
   const handleChange = (e) => {
     setTempData({ ...tempData, [e.target.name]: e.target.value });
@@ -43,9 +48,9 @@ const MechanicProfile = () => {
           RP
         </div>
         <div>
-          <h2 className="text-xl font-semibold text-gray-900">{formData.name}</h2>
-          <p className="text-gray-600">{formData.title}</p>
-          <p className="text-gray-500">{formData.location}</p>
+          <h2 className="text-xl font-semibold text-gray-900">{formData?.username}</h2>
+          {/* <p className="text-gray-600">{formData.title}</p> */}
+          <p className="text-gray-500">{formData?.location?.latitude} {formData?.location?.longitude}</p>
         </div>
       </div>
 
@@ -65,11 +70,11 @@ const MechanicProfile = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {[
             ["Email", "email"],
-            ["Phone", "phone"],
-            ["Experience", "experience"],
-            ["Location", "location"],
-            ["Skills", "skills"],
-            ["Status", "status"],
+            ["Phone", "number"],
+            // ["Experience", "experience"],
+            // ["Location", "location"],
+            // ["Skills", "skills"],
+            // ["Status", "status"],
           ].map(([label, name]) => (
             <div key={name}>
               <label className="text-sm text-gray-600 font-medium">{label}</label>

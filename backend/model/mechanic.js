@@ -4,6 +4,12 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const Review = require("./review");
 
 const mechanicSchema = new Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true
+    },
     email: {
         type: String,
         required: true,
@@ -20,6 +26,9 @@ const mechanicSchema = new Schema({
     location: {
         latitude: { type: Number, required: true },
         longitude: { type: Number, required: true }
+    },
+    address: {
+        type: String,
     },
     liveLocation: {
         latitude: { type: Number },

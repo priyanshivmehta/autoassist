@@ -7,19 +7,25 @@ const methodOverride = require("method-override");
 const flash = require("connect-flash");
 const User = require("./model/user");
 const Mechanic = require("./model/mechanic");
+const Admin = require("./model/admin");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const dotenv = require("dotenv");
 const user=require("./routes/user");
 const mechanic=require("./routes/mechanic");
+const admin=require("./routes/admin");
+const booking = require("./routes/booking");
 const Razorpay =require("razorpay");
 const paymentRoute=require("./routes/paymentRoute");
 const Chat = require("./model/chat");
 
 const cors=require("cors");
 
-app.use(cors());
 
+app.use(cors({
+  origin:'http://localhost:5173',
+  credentials: true,
+}));
 
 const {Server}=require("socket.io");
 const {createServer}=require("http");
@@ -27,7 +33,7 @@ const server=createServer(app);
 
 const io=new Server(server,{
     cors:{
-        origin:"http://localhost:5173",
+        origin:'http://localhost:5173',
         methods:["GET","POST"],
         credentials:true,
     }
@@ -63,11 +69,13 @@ app.use(methodOverride("_method"));
 const sessionOptions = {
     secret: process.env.SESSION_SECRET || "mysupersecretcode",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
-        expires: Date.now() + 20 * 24 * 60 * 60 * 1000,
+        // expires: Date.now() + 20 * 24 * 60 * 60 * 1000,
         maxAge: 20 * 24 * 60 * 60 * 1000,
         httpOnly: true,
+        secure: false,
+        sameSite: "lax", // Changed from 'lax' to 'none' to allow cross-origin cookies
     },
 };
 
@@ -77,7 +85,7 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Custom authentication strategy for both Users and Mechanics
+// Custom authentication strategy for both Users, Mechanics and Admins
 passport.use(
     "user-local",
     new LocalStrategy(User.authenticate())
@@ -87,19 +95,32 @@ passport.use(
     new LocalStrategy(Mechanic.authenticate())
 );
 
+passport.use(
+    "admin-local",
+    new LocalStrategy(Admin.authenticate())
+);
+
 // Serialize & Deserialize Users and Mechanics separately
 passport.serializeUser((entity, done) => {
+    // console.log("Serializing user:", entity);
     done(null, { id: entity.id, type: entity.constructor.modelName });
 });
 
 passport.deserializeUser(async (obj, done) => {
+    // console.log("Deserializing user:", obj);
     try {
         if (obj.type === "User") {
             const user = await User.findById(obj.id);
+            console.log("Deserialized user:", user);
             done(null, user);
         } else if (obj.type === "Mechanic") {
             const mechanic = await Mechanic.findById(obj.id);
+            console.log("Deserialized mechanic:", mechanic);
             done(null, mechanic);
+        } else if (obj.type === "Admin") {
+            const admin = await Admin.findById(obj.id);
+            console.log("Deserialized admin:", admin);
+            done(null, admin);
         } else {
             done(new Error("Unknown user type"));
         }
@@ -117,7 +138,8 @@ app.use((req, res, next) => {
 
 app.use("/user",user);
 app.use("/mechanic",mechanic);
-
+app.use("/admin",admin);
+app.use("/booking", booking);
 
 
 

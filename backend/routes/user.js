@@ -5,7 +5,7 @@ const User = require("../model/user");
 const passport = require("passport");
 const userController=require("../controller/user");
 const Review = require("../model/review");
-
+const { isAuthenticated } = require("../middleware/authMiddleware");
 
 // User Registration
 router.post("/signup", userController.signup);
@@ -20,6 +20,7 @@ router.post(
     userController.login
 );
 
+router.get("/profile", isAuthenticated, userController.getProfile);
 
 
 // Update User Details

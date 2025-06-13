@@ -146,8 +146,8 @@ const LoginSignup = () => {
 
   const handleSubmit = async (e) => {
   e.preventDefault();
-  const endpoint = isLoginActive ? "/login" : "/register";
-  const url = `http://localhost:5000${endpoint}`;
+  const endpoint = isLoginActive ? "/user/login" : "/user/signup";
+  const url = `http://localhost:3000${endpoint}`;
 
   // ✅ Validation for registration
   if (!isLoginActive) {
@@ -170,14 +170,14 @@ const LoginSignup = () => {
   }
 
   try {
-    const response = await axios.post(url, formData);
-    if (isLoginActive) {
-      localStorage.setItem("token", response.data.token);
-      alert("Login successful!");
-      navigate("/");
-    } else {
-      alert("Registration successful!");
-    }
+    const response = await axios.post(url, formData, { withCredentials: true });
+    // if (isLoginActive) {
+    //   localStorage.setItem("token", response.data.token);
+    //   alert("Login successful!");
+    // } else {
+      //   alert("Registration successful!");
+      // }
+    navigate("/");
     setFormData({ username: "", email: "", number: "", password: "" });
   } catch (error) {
     alert(error.response?.data?.error || "An error occurred");

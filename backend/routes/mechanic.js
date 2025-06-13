@@ -34,6 +34,7 @@ router.post(
     mechanicController.login
 );
 
+router.get("/profile", isAuthenticated, mechanicController.getProfile);
 
 // Update Mechanic Details
 router.put("/:id", mechanicController.update);

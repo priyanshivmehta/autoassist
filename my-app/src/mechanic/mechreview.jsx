@@ -1,49 +1,50 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
 import MechNav from "../components/mechNav";
+import { useMechanic } from "../context/MechanicContextProvider";
 
-const reviews = [
-  {
-    name: "Amit Sharma",
-    rating: 5,
-    review: "Got a flat tyre on highway. Rajesh arrived within 20 minutes and fixed it quickly. Lifesaver!",
-  },
-  {
-    name: "Pooja Mehta",
-    rating: 5,
-    review: "Battery died outside the office. The mechanic jump-started my car in no time. Very polite and professional.",
-  },
-  {
-    name: "Deepak Verma",
-    rating: 4,
-    review: "Quick response and good service. A bit of delay in reaching the location, but overall happy.",
-  },
-  {
-    name: "Sneha Joshi",
-    rating: 5,
-    review: "Was stranded late at night, but Rajesh handled everything calmly. Highly recommended roadside help!",
-  },
-  {
-    name: "Rahul Nair",
-    rating: 5,
-    review: "Punctual, skilled, and friendly. Got my bike chain fixed without needing to tow it.",
-  },
-  {
-    name: "Vikas Tiwari",
-    rating: 5,
-    review: "Amazing app! Called a mechanic and he reached in under 15 minutes. Fixed the engine issue on spot.",
-  },
-  {
-    name: "Ritu Jain",
-    rating: 4,
-    review: "Professional mechanic, knew exactly what to do. Would prefer faster tracking next time.",
-  },
-  {
-    name: "Anil D'Souza",
-    rating: 5,
-    review: "Best emergency service I’ve used. Car wouldn't start and it was fixed on the spot. Big thanks to Rajesh!",
-  },
-];
+// const reviews = [
+//   {
+//     name: "Amit Sharma",
+//     rating: 5,
+//     review: "Got a flat tyre on highway. Rajesh arrived within 20 minutes and fixed it quickly. Lifesaver!",
+//   },
+//   {
+//     name: "Pooja Mehta",
+//     rating: 5,
+//     review: "Battery died outside the office. The mechanic jump-started my car in no time. Very polite and professional.",
+//   },
+//   {
+//     name: "Deepak Verma",
+//     rating: 4,
+//     review: "Quick response and good service. A bit of delay in reaching the location, but overall happy.",
+//   },
+//   {
+//     name: "Sneha Joshi",
+//     rating: 5,
+//     review: "Was stranded late at night, but Rajesh handled everything calmly. Highly recommended roadside help!",
+//   },
+//   {
+//     name: "Rahul Nair",
+//     rating: 5,
+//     review: "Punctual, skilled, and friendly. Got my bike chain fixed without needing to tow it.",
+//   },
+//   {
+//     name: "Vikas Tiwari",
+//     rating: 5,
+//     review: "Amazing app! Called a mechanic and he reached in under 15 minutes. Fixed the engine issue on spot.",
+//   },
+//   {
+//     name: "Ritu Jain",
+//     rating: 4,
+//     review: "Professional mechanic, knew exactly what to do. Would prefer faster tracking next time.",
+//   },
+//   {
+//     name: "Anil D'Souza",
+//     rating: 5,
+//     review: "Best emergency service I’ve used. Car wouldn't start and it was fixed on the spot. Big thanks to Rajesh!",
+//   },
+// ];
 
 const groupIntoRows = (array, perRow = 3) => {
   return array.reduce((rows, item, index) => {
@@ -55,6 +56,8 @@ const groupIntoRows = (array, perRow = 3) => {
 };
 
 const CustomerReviews = () => {
+  const { Mechanic, loading } = useMechanic();
+  const reviews = Mechanic ? Mechanic.reviews : [];
   const groupedReviews = groupIntoRows(reviews, 3);
 
   return (

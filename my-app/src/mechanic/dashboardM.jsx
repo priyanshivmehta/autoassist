@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/mechStyle.css";
 import MechNav from "../components/mechNav";
+import { useMechanic } from "../context/MechanicContextProvider";
 
 const MechanicDashboard = () => {
   const navigate = useNavigate();
-
+  const { Mechanic, loading } = useMechanic();
+  
   const [rejectedJobs, setRejectedJobs] = useState([]);
 
   const handleLogout = () => {
@@ -43,6 +45,29 @@ const MechanicDashboard = () => {
     },
   ];
 
+   const [bookingStatusCounts, setBookingStatusCounts] = useState({
+    pending: 0,
+    accepted: 0,
+    completed: 0,
+    rejected: 0, 
+  });
+
+  useEffect(() => {
+    if (Mechanic && Mechanic.bookings) {
+      const counts = Mechanic.bookings.reduce((acc, booking) => {
+        const status = booking.status;
+       
+        if (acc.hasOwnProperty(status)) {
+          acc[status] = (acc[status] || 0) + 1;
+        }
+        return acc;
+      }, { pending: 0, accepted: 0, completed: 0, rejected: 0 }); // Initialize with all possible statuses to ensure they exist even if count is 0
+      setBookingStatusCounts(counts);
+    }
+  }, [Mechanic]); // Recalculate if mechanicData changes
+
+
+
   return (
     <div>
       <MechNav />
@@ -56,15 +81,15 @@ const MechanicDashboard = () => {
         <section className="admin-stats">
           <div className="stat-card">
             <h3>New Requests</h3>
-            <p className="colors">3</p>
+            <p className="colors">{bookingStatusCounts.pending}</p>
           </div>
           <div className="stat-card">
             <h3>Pending Jobs</h3>
-            <p className="colors">2</p>
+            <p className="colors">{bookingStatusCounts.accepted}</p>
           </div>
           <div className="stat-card">
             <h3>Completed Jobs</h3>
-            <p className="colors">5</p>
+            <p className="colors">{bookingStatusCounts.completed}</p>
           </div>
         </section>
 

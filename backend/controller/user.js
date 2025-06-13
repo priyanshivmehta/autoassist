@@ -15,10 +15,14 @@ module.exports.signup = async (req, res) => {
         const newUser = new User({ username, email, number });
 
         const registeredUser = await User.register(newUser, password);
-        
+
         console.log("User registered successfully:", registeredUser);
         req.flash("success", "User registered successfully!");
-        return res.redirect("/");
+        return res.status(201).json({
+            success: true,
+            message: "User registered successfully!",
+            // user: registeredUser
+        });
     } catch (err) {
         console.error("Error during user signup:", err);
         req.flash("error", err.message);
@@ -26,13 +30,40 @@ module.exports.signup = async (req, res) => {
     }
 };
 
-module.exports.login=async(req, res) => {
+module.exports.login = async (req, res, next) => {
     req.flash("success", "Welcome User");
+    const user = req.user;
+    req.login(user, (err) => {
+        if (err) return next(err);
 
-    res.redirect("/dashboard"); // Redirect to user dashboard
+        // Ensures session is fully saved before responding
+        req.session.save((err) => {
+            if (err) return next(err);
+            res.status(200).json({
+                message: "Login successful",
+                success: true,
+                user,
+            }); // frontend will now have proper cookie
+        });
+    });
 };
 
-module.exports.update=async (req, res) => {
+module.exports.getProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        if (!user) {
+            req.flash("error", "User not found.");
+            return res.redirect("/");
+        }
+        res.status(200).json(user);
+    } catch (err) {
+        console.error("Error fetching user profile:", err);
+        req.flash("error", "Error fetching user profile.");
+        res.redirect("/");
+    }
+}
+
+module.exports.update = async (req, res) => {
     try {
         const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
         req.flash("success", "User updated successfully!");
@@ -54,9 +85,9 @@ module.exports.logout = (req, res) => {
     });
 };
 
-module.exports.delete=async (req, res) => {
+module.exports.delete = async (req, res) => {
     try {
-        let deletedUser=await User.findByIdAndDelete(req.params.id);
+        let deletedUser = await User.findByIdAndDelete(req.params.id);
         console.log(deletedUser);
         req.flash("success", "User deleted successfully!");
         res.redirect("/");
@@ -96,7 +127,7 @@ module.exports.createReview = async (req, res) => {
         if (!rating || !comment) {
             return res.status(400).json({ error: "Rating and comment are required." });
         }
-        
+
         // Create a new review
         const review = new Review({
             rating,

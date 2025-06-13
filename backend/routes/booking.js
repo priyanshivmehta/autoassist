@@ -5,38 +5,38 @@ const bookingController = require('../controller/booking');
 
 // User routes
 router.post('/create-booking',
-    isUserAuthorized,
+    isAuthenticated,
     bookingController.createBooking
 );
 
 router.get('/user-bookings',
-    isUserAuthorized,
+    isAuthenticated,
     bookingController.getUserBookings
 );
 
 router.post('/cancel-booking/:bookingId',
-    isUserAuthorized,
+    isAuthenticated,
     bookingController.cancelBooking
 );
 
 router.post('/rate-booking/:bookingId',
-    isUserAuthorized,
+    isAuthenticated,
     bookingController.rateBooking
 );
 
 // Mechanic routes
 router.get('/mechanic-bookings',
-    isMechanicAuthorized,
+    isAuthenticated,
     bookingController.getMechanicBookings
 );
 
 router.post('/accept-booking/:bookingId',
-    isMechanicAuthorized,
+    isAuthenticated,
     bookingController.acceptBooking
 );
 
 router.post('/complete-booking/:bookingId',
-    isMechanicAuthorized,
+    isAuthenticated,
     bookingController.completeBooking
 );
 
